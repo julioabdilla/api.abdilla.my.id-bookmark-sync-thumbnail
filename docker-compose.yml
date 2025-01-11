@@ -1,0 +1,14 @@
+services:
+  bookmark-sync-thumbnail:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api.abdilla.my.id-bookmark-sync-thumbnail
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    networks:
+      - abdilla.my.id
+networks:
+  abdilla.my.id:
+    external: true
