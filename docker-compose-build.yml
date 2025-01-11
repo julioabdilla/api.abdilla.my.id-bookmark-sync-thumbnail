@@ -1,5 +1,5 @@
 services:
-  api-bookmark-sync-thumbnail:
+  service:
     build:
       context: .
       dockerfile: Dockerfile
