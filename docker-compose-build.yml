@@ -1,0 +1,6 @@
+services:
+  api-bookmark-sync-thumbnail:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: build

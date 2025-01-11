@@ -1,12 +1,17 @@
-FROM node:lts-alpine
+FROM node:lts-alpine AS build
+
 WORKDIR /app
-COPY package.json ./
-COPY yarn.lock ./
-COPY .env .
-COPY tsconfig.json .
-COPY tsconfig.build.json .
-COPY nest-cli.json .
+RUN npm i -g @nestjs/cli
+COPY package*.json .
+COPY yarn* .
 RUN yarn install
+COPY . .
 RUN yarn build
-COPY dist/ .
-CMD [ "node", "dist/main.js" ]
+
+FROM node:lts-alpine AS run
+WORKDIR /app
+COPY package*.json .
+COPY yarn* .
+RUN yarn install --production --frozen-lockfile
+COPY --from=build /app/dist ./dist
+CMD ["node", "dist/main.js"]
