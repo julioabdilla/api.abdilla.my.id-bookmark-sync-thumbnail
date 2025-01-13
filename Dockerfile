@@ -1,4 +1,4 @@
-FROM node:lts-alpine AS build
+FROM node:lts-slim AS build
 WORKDIR /app
 RUN npm i -g @nestjs/cli
 COPY package*.json .
@@ -7,7 +7,7 @@ RUN yarn install
 COPY . .
 RUN yarn build
 
-FROM node:lts-alpine AS run
+FROM node:lts-slim AS run
 WORKDIR /app
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 RUN apt update && apt install gnupg wget -y && \
