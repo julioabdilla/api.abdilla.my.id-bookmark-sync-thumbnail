@@ -17,7 +17,8 @@ export class BookmarkService {
 
   async syncThumbnail(uuid: string, link: string) {
     const browser = await puppeteer.launch({
-      executablePath: this.config.get<string>('PUPPETEER_EXECUTEABLE_PATH')
+      executablePath: this.config.get<string>('PUPPETEER_EXECUTEABLE_PATH'),
+      args: ['--no-sandbox']
     });
     try {
       const now = moment();
