@@ -1,9 +1,9 @@
 services:
-  service:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-      target: run
+    image: build.abdilla.my.id/api.abdilla.my.id-bookmark-sync-thumbnail:v1.0.0
     restart: unless-stopped
     env_file:
       - ./.env

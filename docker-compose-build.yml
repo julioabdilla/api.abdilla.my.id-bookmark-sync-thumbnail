@@ -1,6 +1,0 @@
-services:
-  service:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: build
