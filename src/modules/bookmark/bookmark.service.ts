@@ -6,6 +6,7 @@ import { Bookmark as BookmarkModel } from "./bookmark.model";
 import { ConfigService } from '@nestjs/config';
 import { HttpClient } from '@/shared/http';
 import { SHA256 } from '@/shared/crypto/crypto';
+import { HttpRequestConfig } from '@/shared/http';
 
 @Injectable()
 export class BookmarkService {
@@ -68,12 +69,14 @@ export class BookmarkService {
 
       const httpClient = new HttpClient().disableLog();
       httpClient.put(endpoint, fileBuffer, {
-        'Content-Type': 'image/png',
-        "Content-Length": fileBuffer.length,
-        'x-amz-acl': 'public-read',
-        'x-amz-date': amzDate,
-        'Authorization': authorizationHeader
-      } as any);
+        headers: {
+          'Content-Type': 'image/png',
+          "Content-Length": fileBuffer.length,
+          'x-amz-acl': 'public-read',
+          'x-amz-date': amzDate,
+          'Authorization': authorizationHeader
+        } as any
+      });
       console.log(endpoint);
 
       bookmark.thumbnailUrl = endpoint;
