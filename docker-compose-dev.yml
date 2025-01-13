@@ -1,0 +1,10 @@
+services:
+  service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    network_mode: host

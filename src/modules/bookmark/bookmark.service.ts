@@ -1,16 +1,17 @@
 import * as puppeteer from 'puppeteer';
 import * as moment from 'moment';
 
+import { Logger } from '@nestjs/common';
 import { Inject, Injectable } from "@nestjs/common";
 import { Bookmark as BookmarkModel } from "./bookmark.model";
 import { ConfigService } from '@nestjs/config';
 import { HttpClient } from '@/shared/http';
 import { SHA256 } from '@/shared/crypto/crypto';
-import { HttpRequestConfig } from '@/shared/http';
 import { AxiosRequestHeaders } from 'axios';
 
 @Injectable()
 export class BookmarkService {
+  protected readonly logger = new Logger(this.constructor.name);
 
   constructor(
     private readonly config: ConfigService,
@@ -78,7 +79,7 @@ export class BookmarkService {
           'Authorization': authorizationHeader
         } as any as AxiosRequestHeaders
       });
-      console.log(endpoint);
+      this.logger.log(endpoint);
 
       bookmark.thumbnailUrl = endpoint;
       await bookmark.save();
