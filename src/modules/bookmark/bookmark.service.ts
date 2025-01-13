@@ -7,6 +7,7 @@ import { ConfigService } from '@nestjs/config';
 import { HttpClient } from '@/shared/http';
 import { SHA256 } from '@/shared/crypto/crypto';
 import { HttpRequestConfig } from '@/shared/http';
+import { AxiosRequestHeaders } from 'axios';
 
 @Injectable()
 export class BookmarkService {
@@ -75,7 +76,7 @@ export class BookmarkService {
           'x-amz-acl': 'public-read',
           'x-amz-date': amzDate,
           'Authorization': authorizationHeader
-        } as any
+        } as any as AxiosRequestHeaders
       });
       console.log(endpoint);
 
